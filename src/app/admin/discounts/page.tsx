@@ -1,8 +1,19 @@
-export default function AdminDiscountsPage() {
+import { prisma } from "@/lib/db";
+import { DiscountList } from "@/components/admin/DiscountList";
+
+export default async function AdminDiscountsPage() {
+  const discounts = await prisma.discount.findMany({
+    orderBy: { createdAt: "desc" },
+  });
+
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6">مدیریت تخفیف‌ها</h1>
-      <p className="text-gray-500">صفحه مدیریت تخفیف‌ها در حال ساخت است...</p>
+      <DiscountList discounts={discounts.map((d) => ({
+        ...d,
+        expiresAt: d.expiresAt?.toISOString() || null,
+        createdAt: d.createdAt.toISOString(),
+      }))} />
     </div>
   );
 }

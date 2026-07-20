@@ -15,6 +15,7 @@ model User {
   phone     String?
   address   String?
   role      String   @default("USER")
+  active    Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
