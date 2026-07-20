@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { ProductCard } from "@/components/products/ProductCard";
@@ -11,6 +12,24 @@ interface Props {
 
 function formatPrice(price: number) {
   return price.toLocaleString("fa-IR") + " تومان";
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await prisma.product.findUnique({ where: { slug }, select: { name: true, description: true } });
+  if (!product) return {};
+  return {
+    title: product.name,
+    description: product.description.slice(0, 160),
+    openGraph: {
+      title: product.name,
+      description: product.description.slice(0, 160),
+    },
+    twitter: {
+      title: product.name,
+      description: product.description.slice(0, 160),
+    },
+  };
 }
 
 export default async function ProductDetailPage({ params }: Props) {

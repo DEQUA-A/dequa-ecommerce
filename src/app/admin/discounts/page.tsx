@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { DiscountList } from "@/components/admin/DiscountList";
+
+export const metadata: Metadata = { title: "مدیریت تخفیف‌ها", description: "مدیریت کدهای تخفیف فروشگاه" };
 
 export default async function AdminDiscountsPage() {
   const discounts = await prisma.discount.findMany({

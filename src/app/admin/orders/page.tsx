@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { OrderStatusBadge } from "@/components/admin/OrderStatusBadge";
 import Link from "next/link";
+
+export const metadata: Metadata = { title: "مدیریت سفارشات", description: "مشاهده و مدیریت تمام سفارشات" };
 import { ChevronLeft } from "lucide-react";
 
 function formatPrice(price: number) {

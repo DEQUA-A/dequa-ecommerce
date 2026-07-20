@@ -1,9 +1,12 @@
+import type { Metadata } from "next";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { ProfileForm } from "@/components/account/ProfileForm";
 import { ChangePasswordForm } from "@/components/account/ChangePasswordForm";
 import { Mail, Shield, User as UserIcon } from "lucide-react";
+
+export const metadata: Metadata = { title: "پروفایل", description: "مشاهده و ویرایش اطلاعات حساب کاربری" };
 
 export default async function AccountPage() {
   const session = await auth();

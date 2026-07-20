@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { UserRoleToggle } from "@/components/admin/UserRoleToggle";
 import { Search } from "lucide-react";
+
+export const metadata: Metadata = { title: "مدیریت کاربران", description: "مشاهده و مدیریت کاربران فروشگاه" };
 
 interface Props {
   searchParams: Promise<{ q?: string }>;

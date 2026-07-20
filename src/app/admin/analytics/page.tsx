@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { SalesChart } from "@/components/admin/SalesChart";
+
+export const metadata: Metadata = { title: "آمار فروش", description: "آمار و نمودارهای فروش فروشگاه" };
 
 function formatPrice(price: number) {
   return price.toLocaleString("fa-IR") + " تومان";

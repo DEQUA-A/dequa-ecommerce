@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Package, ChevronLeft } from "lucide-react";
+
+export const metadata: Metadata = { title: "سفارشات من", description: "مشاهده لیست سفارشات" };
 import Link from "next/link";
 
 function formatPrice(price: number) {

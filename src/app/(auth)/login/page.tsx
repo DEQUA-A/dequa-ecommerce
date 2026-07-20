@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { LoginForm } from "@/components/auth/LoginForm";
+
+export const metadata: Metadata = { title: "ورود", description: "به حساب کاربری خود وارد شوید." };
 
 export default function LoginPage() {
   return (

@@ -1,8 +1,14 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { ProductCard } from "@/components/products/ProductCard";
 import { ProductFilters } from "@/components/products/ProductFilters";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "محصولات",
+  description: "مشاهده و خرید انواع محصولات با بهترین قیمت‌ها. دسته‌بندی‌های متنوع، برندهای معتبر و تخفیف‌های ویژه.",
+};
 
 interface Props {
   searchParams: Promise<{ q?: string; category?: string; brand?: string; minPrice?: string; maxPrice?: string; page?: string }>;

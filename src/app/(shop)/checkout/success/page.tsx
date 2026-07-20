@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle, ArrowLeft } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "سفارش ثبت شد",
+  description: "سفارش شما با موفقیت ثبت شد.",
+  robots: { index: false, follow: false },
+};
 
 interface Props {
   searchParams: Promise<{ orderId?: string }>;

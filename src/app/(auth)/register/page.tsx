@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { RegisterForm } from "@/components/auth/RegisterForm";
+
+export const metadata: Metadata = { title: "ثبت‌نام", description: "حساب کاربری جدید ایجاد کنید." };
 
 export default function RegisterPage() {
   return (

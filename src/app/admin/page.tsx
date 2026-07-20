@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { DollarSign, ShoppingBag, Users, Package, ChevronLeft } from "lucide-react";
 import Link from "next/link";
+
+export const metadata: Metadata = { title: "داشبورد", description: "پنل مدیریت فروشگاه" };
 
 function formatPrice(price: number) {
   return price.toLocaleString("fa-IR") + " تومان";
