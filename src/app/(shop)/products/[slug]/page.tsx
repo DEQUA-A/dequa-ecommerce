@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { ProductCard } from "@/components/products/ProductCard";
+import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { CheckCircle, XCircle, ChevronLeft } from "lucide-react";
 
 interface Props {
@@ -107,9 +108,18 @@ export default async function ProductDetailPage({ params }: Props) {
             )}
           </div>
 
-          <div className="prose prose-sm max-w-none text-gray-600 leading-relaxed">
+          <div className="prose prose-sm max-w-none text-gray-600 leading-relaxed mb-6">
             {product.description}
           </div>
+
+          <AddToCartButton
+            productId={product.id}
+            name={product.name}
+            price={product.price}
+            discountPrice={product.discountPrice}
+            image={product.images[0]?.url || "/placeholder.svg"}
+            stock={product.stock}
+          />
         </div>
       </div>
 

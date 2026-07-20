@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { ShoppingCart, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 import { UserMenu } from "@/components/auth/UserMenu";
+import { CartBadge } from "@/components/cart/CartBadge";
 
 export function Header() {
   return (
@@ -20,12 +21,7 @@ export function Header() {
           <Link href="/account/wishlist" className="hover:text-primary transition-colors">
             <Heart className="w-5 h-5" />
           </Link>
-          <Link href="/cart" className="hover:text-primary transition-colors relative">
-            <ShoppingCart className="w-5 h-5" />
-            <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-              0
-            </span>
-          </Link>
+          <CartBadge />
 
           <UserMenu />
         </div>
