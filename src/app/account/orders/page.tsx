@@ -48,7 +48,7 @@ export default async function OrdersPage() {
         {orders.map((order) => {
           const statusInfo = statusMap[order.status] || { label: order.status, color: "bg-gray-100 text-gray-700" };
           return (
-            <div key={order.id} className="border rounded-2xl p-4 md:p-6">
+            <Link key={order.id} href={`/account/orders/${order.id}`} className="block border rounded-2xl p-4 md:p-6 hover:shadow-md transition-shadow">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
                 <div>
                   <span className="text-xs text-gray-400" dir="ltr">
@@ -65,7 +65,7 @@ export default async function OrdersPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                {order.items.map((item) => (
+                {order.items.slice(0, 3).map((item) => (
                   <div key={item.id} className="flex items-center justify-between text-sm">
                     <div className="flex items-center gap-2">
                       {item.image && (
@@ -78,8 +78,11 @@ export default async function OrdersPage() {
                     </span>
                   </div>
                 ))}
+                {order.items.length > 3 && (
+                  <p className="text-xs text-gray-400">... {order.items.length - 3} محصول دیگر</p>
+                )}
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>
