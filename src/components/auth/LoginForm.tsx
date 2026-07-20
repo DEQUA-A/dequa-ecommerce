@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 
-export function LoginForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/account";
+interface Props {
+  callbackUrl?: string;
+}
 
+export function LoginForm({ callbackUrl = "/account" }: Props) {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -23,20 +24,30 @@ export function LoginForm() {
     const email = form.get("email") as string;
     const password = form.get("password") as string;
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
 
-    if (result?.error) {
-      setError("ایمیل یا رمز عبور اشتباه است");
+      if (result?.error) {
+        setError("ایمیل یا رمز عبور اشتباه است");
+        setLoading(false);
+        return;
+      }
+
+      if (result?.ok) {
+        router.push(callbackUrl);
+        router.refresh();
+      } else {
+        setError("خطایی رخ داد. لطفا دوباره تلاش کنید.");
+        setLoading(false);
+      }
+    } catch {
+      setError("خطایی رخ داد. لطفا دوباره تلاش کنید.");
       setLoading(false);
-      return;
     }
-
-    router.push(callbackUrl);
-    router.refresh();
   }
 
   return (
