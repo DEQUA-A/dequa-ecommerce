@@ -17,7 +17,8 @@ const productSchema = z.object({
   featured: z.coerce.boolean(),
   categoryId: z.string().min(1, "دسته‌بندی را انتخاب کنید"),
   brandId: z.string().min(1, "برند را انتخاب کنید"),
-  imageUrl: z.string().url("لینک تصویر معتبر نیست").optional().or(z.literal("")),
+  imageUrls: z.string().optional(),
+  removedImageIds: z.string().optional(),
 });
 
 export type ProductState = {
@@ -46,7 +47,8 @@ export async function createProduct(
     featured: formData.get("featured") === "on",
     categoryId: formData.get("categoryId") as string,
     brandId: formData.get("brandId") as string,
-    imageUrl: (formData.get("imageUrl") as string) || "",
+    imageUrls: (formData.get("imageUrls") as string) || "[]",
+    removedImageIds: (formData.get("removedImageIds") as string) || "[]",
   };
 
   const validated = productSchema.safeParse(raw);
@@ -54,7 +56,8 @@ export async function createProduct(
     return { errors: validated.error.flatten().fieldErrors, message: "خطاهای فرم را برطرف کنید" };
   }
 
-  const { imageUrl, ...data } = validated.data;
+  const { imageUrls: imageUrlsRaw, removedImageIds: _, ...data } = validated.data;
+  const imageUrls: { url: string; alt: string }[] = JSON.parse(imageUrlsRaw || "[]");
 
   const existing = await prisma.product.findUnique({ where: { slug: data.slug } });
   if (existing) {
@@ -63,9 +66,9 @@ export async function createProduct(
 
   const product = await prisma.product.create({ data });
 
-  if (imageUrl) {
-    await prisma.productImage.create({
-      data: { url: imageUrl, alt: data.name, productId: product.id },
+  if (imageUrls.length > 0) {
+    await prisma.productImage.createMany({
+      data: imageUrls.map((img) => ({ url: img.url, alt: img.alt || data.name, productId: product.id })),
     });
   }
 
@@ -94,7 +97,8 @@ export async function updateProduct(
     featured: formData.get("featured") === "on",
     categoryId: formData.get("categoryId") as string,
     brandId: formData.get("brandId") as string,
-    imageUrl: (formData.get("imageUrl") as string) || "",
+    imageUrls: (formData.get("imageUrls") as string) || "[]",
+    removedImageIds: (formData.get("removedImageIds") as string) || "[]",
   };
 
   const validated = productSchema.safeParse(raw);
@@ -102,7 +106,9 @@ export async function updateProduct(
     return { errors: validated.error.flatten().fieldErrors, message: "خطاهای فرم را برطرف کنید" };
   }
 
-  const { imageUrl, ...data } = validated.data;
+  const { imageUrls: imageUrlsRaw, removedImageIds: removedIdsRaw, ...data } = validated.data;
+  const imageUrls: { url: string; alt: string }[] = JSON.parse(imageUrlsRaw || "[]");
+  const removedImageIds: string[] = JSON.parse(removedIdsRaw || "[]");
 
   const conflict = await prisma.product.findFirst({
     where: { slug: data.slug, id: { not: id } },
@@ -113,11 +119,14 @@ export async function updateProduct(
 
   await prisma.product.update({ where: { id }, data });
 
-  const existingImages = await prisma.productImage.findFirst({ where: { productId: id } });
-  if (imageUrl && existingImages) {
-    await prisma.productImage.update({ where: { id: existingImages.id }, data: { url: imageUrl, alt: data.name } });
-  } else if (imageUrl) {
-    await prisma.productImage.create({ data: { url: imageUrl, alt: data.name, productId: id } });
+  if (removedImageIds.length > 0) {
+    await prisma.productImage.deleteMany({ where: { id: { in: removedImageIds }, productId: id } });
+  }
+
+  if (imageUrls.length > 0) {
+    await prisma.productImage.createMany({
+      data: imageUrls.map((img) => ({ url: img.url, alt: img.alt || data.name, productId: id })),
+    });
   }
 
   revalidatePath("/admin/products");

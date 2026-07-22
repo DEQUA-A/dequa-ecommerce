@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import { AlertCircle } from "lucide-react";
 
 type Category = { id: string; name: string };
@@ -126,23 +127,7 @@ export function ProductForm({ action, initialState, categories, brands, product 
         </div>
       </div>
 
-      <div className="space-y-1.5">
-        <label className="block text-sm font-medium text-gray-700">تصویر محصول</label>
-        <Input
-          label=""
-          name="imageUrl"
-          type="url"
-          dir="ltr"
-          placeholder="https://example.com/image.jpg"
-          defaultValue={product?.images?.[0]?.url || ""}
-          error={getError("imageUrl")}
-        />
-        {product?.images?.[0] && (
-          <div className="w-32 h-32 rounded-xl overflow-hidden border border-gray-100 mt-2">
-            <img src={product.images[0].url} alt={product.name} className="w-full h-full object-cover" />
-          </div>
-        )}
-      </div>
+      <ImageUpload existingImages={product?.images} />
 
       <div className="flex gap-3 pt-2">
         <Button type="submit" loading={isPending}>
