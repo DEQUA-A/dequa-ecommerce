@@ -1,6 +1,7 @@
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { MobileBottomNav } from "./MobileBottomNav";
+import { ScrollToTop } from "./ScrollToTop";
 
 export function ShopLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,6 +10,7 @@ export function ShopLayout({ children }: { children: React.ReactNode }) {
       <main className="flex-1 pb-16 md:pb-0">{children}</main>
       <Footer />
       <MobileBottomNav />
+      <ScrollToTop />
     </>
   );
 }
