@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { CalendarDays } from "lucide-react";
 
 interface OrderData {
   total: number;
@@ -45,15 +46,20 @@ export function SalesChart({ orders }: Props) {
   }, [orders, period]);
 
   return (
-    <div className="bg-white rounded-xl border p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="font-bold">نمودار فروش</h2>
+    <div className="bg-white rounded-2xl border border-gray-100 p-5 md:p-6 animate-fade-in-up">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+            <CalendarDays className="w-4 h-4 text-primary" />
+          </div>
+          <h2 className="font-bold text-sm">نمودار فروش</h2>
+        </div>
         <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
           {(["daily", "weekly", "monthly"] as Period[]).map((p) => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
-              className={`px-3 py-1.5 rounded-md text-xs font-bold transition-colors ${
+              className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all duration-200 ${
                 period === p ? "bg-white text-gray-800 shadow-sm" : "text-gray-500 hover:text-gray-700"
               }`}
             >
@@ -72,8 +78,8 @@ export function SalesChart({ orders }: Props) {
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis dataKey="name" fontSize={11} tick={{ fill: "#9ca3af" }} />
               <YAxis fontSize={11} tick={{ fill: "#9ca3af" }} tickFormatter={(v) => (v / 10000).toFixed(0) + "k"} />
-              <Tooltip formatter={(v) => formatPrice(Number(v))} />
-              <Bar dataKey="value" fill="#e74c3c" radius={[4, 4, 0, 0]} />
+              <Tooltip formatter={(v) => formatPrice(Number(v))} contentStyle={{ borderRadius: "12px", border: "1px solid #e5e7eb", boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)" }} />
+              <Bar dataKey="value" fill="#e74c3c" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         )}

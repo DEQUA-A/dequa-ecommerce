@@ -14,11 +14,19 @@ const labels: Record<string, string> = {
 };
 
 const colors: Record<string, string> = {
-  PENDING: "bg-yellow-100 text-yellow-700",
-  PROCESSING: "bg-blue-100 text-blue-700",
-  SHIPPED: "bg-purple-100 text-purple-700",
-  COMPLETED: "bg-green-100 text-green-700",
-  CANCELLED: "bg-red-100 text-red-700",
+  PENDING: "bg-amber-50 text-amber-700 border-amber-200",
+  PROCESSING: "bg-blue-50 text-blue-700 border-blue-200",
+  SHIPPED: "bg-purple-50 text-purple-700 border-purple-200",
+  COMPLETED: "bg-green-50 text-green-700 border-green-200",
+  CANCELLED: "bg-red-50 text-red-700 border-red-200",
+};
+
+const dots: Record<string, string> = {
+  PENDING: "bg-amber-500",
+  PROCESSING: "bg-blue-500",
+  SHIPPED: "bg-purple-500",
+  COMPLETED: "bg-green-500",
+  CANCELLED: "bg-red-500",
 };
 
 interface Props {
@@ -36,18 +44,21 @@ export function OrderStatusBadge({ orderId, current }: Props) {
   const [error, submitAction] = useActionState(submit, null);
 
   return (
-    <form action={submitAction}>
+    <form action={submitAction} className="relative">
       <input type="hidden" name="orderId" value={orderId} />
-      <select
-        name="status"
-        defaultValue={current}
-        onChange={(e) => e.target.form?.requestSubmit()}
-        className={`text-xs font-bold px-2.5 py-1 rounded-full border-0 cursor-pointer ${colors[current] || "bg-gray-100"}`}
-      >
-        {STATUSES.map((s) => (
-          <option key={s} value={s}>{labels[s] || s}</option>
-        ))}
-      </select>
+      <div className="relative inline-flex items-center">
+        <span className={`absolute right-2 w-1.5 h-1.5 rounded-full ${dots[current] || "bg-gray-500"}`} />
+        <select
+          name="status"
+          defaultValue={current}
+          onChange={(e) => e.target.form?.requestSubmit()}
+          className={`text-[10px] font-bold px-2.5 py-1.5 pr-5 rounded-full border cursor-pointer transition-all duration-200 appearance-none ${colors[current] || "bg-gray-100 text-gray-700 border-gray-200"}`}
+        >
+          {STATUSES.map((s) => (
+            <option key={s} value={s}>{labels[s] || s}</option>
+          ))}
+        </select>
+      </div>
     </form>
   );
 }
