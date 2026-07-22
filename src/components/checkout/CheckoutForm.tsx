@@ -4,7 +4,8 @@ import { useActionState } from "react";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/lib/store/cart";
 import { createOrder } from "@/lib/actions/orders";
-import { Loader2 } from "lucide-react";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
 
 export function CheckoutForm() {
   const router = useRouter();
@@ -34,70 +35,66 @@ export function CheckoutForm() {
   const [error, submitAction, pending] = useActionState(submit, null);
 
   return (
-    <form action={submitAction} className="bg-white border rounded-2xl p-6 space-y-5">
+    <form action={submitAction} className="bg-white border rounded-2xl p-6 space-y-5 animate-fade-in-up">
       <h3 className="font-bold text-lg">اطلاعات تحویل گیرنده</h3>
 
       <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-bold mb-1">نام و نام خانوادگی</label>
-          <input
-            name="fullName"
-            required
-            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-            placeholder="مثال: علی محمدی"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-bold mb-1">شماره تماس</label>
-          <input
-            name="phone"
-            required
-            dir="ltr"
-            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-            placeholder="۰۹۱۲۱۲۳۴۵۶۷"
-          />
-        </div>
+        <Input
+          label="نام و نام خانوادگی"
+          name="fullName"
+          placeholder="مثال: علی محمدی"
+          required
+          autoComplete="name"
+        />
+        <Input
+          label="شماره تماس"
+          name="phone"
+          dir="ltr"
+          placeholder="۰۹۱۲۱۲۳۴۵۶۷"
+          required
+          autoComplete="tel"
+        />
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-bold mb-1">شهر</label>
-          <input
-            name="city"
-            required
-            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-            placeholder="مثال: تهران"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-bold mb-1">کد پستی</label>
-          <input
-            name="postalCode"
-            required
-            dir="ltr"
-            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-            placeholder="۱۲۳۴۵۶۷۸۹۰"
-          />
-        </div>
+        <Input
+          label="شهر"
+          name="city"
+          placeholder="مثال: تهران"
+          required
+          autoComplete="address-level2"
+        />
+        <Input
+          label="کد پستی"
+          name="postalCode"
+          dir="ltr"
+          placeholder="۱۲۳۴۵۶۷۸۹۰"
+          required
+          autoComplete="postal-code"
+        />
       </div>
 
       <div>
-        <label className="block text-sm font-bold mb-1">آدرس</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          آدرس
+        </label>
         <textarea
           name="address"
           required
           rows={3}
-          className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none"
+          className="w-full border border-gray-300 hover:border-gray-400 rounded-xl px-4 py-2.5 text-sm transition-all duration-200 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none"
           placeholder="آدرس کامل خود را وارد کنید"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-bold mb-1">توضیحات (اختیاری)</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          توضیحات (اختیاری)
+        </label>
         <textarea
           name="notes"
           rows={2}
-          className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none"
+          className="w-full border border-gray-300 hover:border-gray-400 rounded-xl px-4 py-2.5 text-sm transition-all duration-200 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none"
           placeholder="توضیحات اضافی برای سفارش"
         />
       </div>
@@ -106,14 +103,9 @@ export function CheckoutForm() {
         <p className="text-red-500 text-sm bg-red-50 p-3 rounded-xl">{error}</p>
       )}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="w-full bg-primary hover:bg-primary-hover text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors disabled:opacity-60"
-      >
-        {pending && <Loader2 className="w-5 h-5 animate-spin" />}
+      <Button type="submit" loading={pending} className="w-full">
         {pending ? "در حال ثبت سفارش..." : "ثبت سفارش"}
-      </button>
+      </Button>
     </form>
   );
 }

@@ -50,6 +50,7 @@ export function RegisterForm() {
         label="نام و نام خانوادگی"
         name="name"
         placeholder="مثال: علی محمدی"
+        autoComplete="name"
         error={getError("name")}
         required
       />
@@ -60,6 +61,7 @@ export function RegisterForm() {
         type="email"
         dir="ltr"
         placeholder="example@email.com"
+        autoComplete="email"
         error={getError("email")}
         required
       />
@@ -69,6 +71,7 @@ export function RegisterForm() {
         name="phone"
         type="tel"
         placeholder="۰۹۱۲۱۲۳۴۵۶۷"
+        autoComplete="tel"
         error={getError("phone")}
         required
       />
@@ -78,6 +81,7 @@ export function RegisterForm() {
         name="password"
         type="password"
         placeholder="حداقل ۶ حرف"
+        autoComplete="new-password"
         error={getError("password")}
         required
       />
@@ -87,6 +91,7 @@ export function RegisterForm() {
         name="confirmPassword"
         type="password"
         placeholder="رمز عبور را دوباره وارد کنید"
+        autoComplete="new-password"
         error={getError("confirmPassword")}
         required
       />

@@ -25,7 +25,7 @@ export function ProductCard({ slug, name, price, discountPrice, stock, images, c
   return (
     <Link
       href={`/products/${slug}`}
-      className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300 flex flex-col"
+      className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300 flex flex-col animate-fade-in-up"
     >
       <div className="relative aspect-square overflow-hidden bg-gray-50">
         <img

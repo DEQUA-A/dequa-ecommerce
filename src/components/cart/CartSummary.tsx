@@ -15,7 +15,7 @@ export function CartSummary() {
   if (items.length === 0) return null;
 
   return (
-    <div className="bg-white border rounded-2xl p-6">
+    <div className="bg-white border rounded-2xl p-6 animate-fade-in-up">
       <h3 className="font-bold text-lg mb-4">خلاصه سبد خرید</h3>
       <div className="space-y-2 text-sm mb-4">
         <div className="flex justify-between">
@@ -29,7 +29,7 @@ export function CartSummary() {
       </div>
       <Link
         href="/checkout"
-        className="w-full bg-primary hover:bg-primary-hover text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors"
+        className="w-full bg-primary hover:bg-primary-hover text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-200 hover:shadow-lg hover:shadow-primary/20 active:scale-[0.97]"
       >
         <ShoppingBag className="w-5 h-5" />
         تسویه حساب

@@ -51,7 +51,7 @@ export function LoginForm({ callbackUrl = "/account" }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
         <div className="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-xl border border-red-200">
           {error}
@@ -64,6 +64,7 @@ export function LoginForm({ callbackUrl = "/account" }: Props) {
         type="email"
         dir="ltr"
         placeholder="example@email.com"
+        autoComplete="email"
         required
       />
 
@@ -72,6 +73,7 @@ export function LoginForm({ callbackUrl = "/account" }: Props) {
         name="password"
         type="password"
         placeholder="••••••••"
+        autoComplete="current-password"
         required
       />
 

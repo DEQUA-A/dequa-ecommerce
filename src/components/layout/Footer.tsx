@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 export function Footer() {
   return (
     <footer className="bg-gray-900 text-white mt-auto">
-      <div className="max-w-7xl mx-auto px-4 py-10">
+      <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-lg font-bold mb-4">فروشگاه من</h3>
@@ -12,17 +14,17 @@ export function Footer() {
           <div>
             <h4 className="font-bold mb-4">دسترسی سریع</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><a href="/" className="hover:text-white transition-colors">خانه</a></li>
-              <li><a href="/products" className="hover:text-white transition-colors">محصولات</a></li>
-              <li><a href="/cart" className="hover:text-white transition-colors">سبد خرید</a></li>
+              <li><Link href="/" className="hover:text-white transition-colors">خانه</Link></li>
+              <li><Link href="/products" className="hover:text-white transition-colors">محصولات</Link></li>
+              <li><Link href="/cart" className="hover:text-white transition-colors">سبد خرید</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="font-bold mb-4">حساب کاربری</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><a href="/account" className="hover:text-white transition-colors">پروفایل</a></li>
-              <li><a href="/account/orders" className="hover:text-white transition-colors">سفارشات</a></li>
-              <li><a href="/account/wishlist" className="hover:text-white transition-colors">علاقه‌مندی‌ها</a></li>
+              <li><Link href="/account" className="hover:text-white transition-colors">پروفایل</Link></li>
+              <li><Link href="/account/orders" className="hover:text-white transition-colors">سفارشات</Link></li>
+              <li><Link href="/account/wishlist" className="hover:text-white transition-colors">علاقه‌مندی‌ها</Link></li>
             </ul>
           </div>
           <div>
@@ -33,7 +35,7 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-800 mt-8 pt-6 text-center text-sm text-gray-500">
+        <div className="border-t border-gray-800 mt-10 pt-6 text-center text-sm text-gray-500">
           © ۲۰۲۶ فروشگاه من. تمامی حقوق محفوظ است.
         </div>
       </div>

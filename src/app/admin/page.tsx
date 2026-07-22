@@ -49,9 +49,9 @@ export default async function AdminDashboard() {
       <h1 className="text-2xl font-bold mb-6">داشبورد</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {stats.map((stat) => (
-          <div key={stat.label} className="bg-white rounded-xl border p-4">
-            <div className={`w-10 h-10 rounded-lg ${stat.color} flex items-center justify-center mb-3`}>
+        {stats.map((stat, i) => (
+          <div key={stat.label} className="bg-white rounded-xl border p-4 animate-fade-in-up" style={{ animationDelay: `${i * 0.1}s` }}>
+            <div className={`w-10 h-10 rounded-xl ${stat.color} flex items-center justify-center mb-3 shadow-sm`}>
               <stat.icon className="w-5 h-5 text-white" />
             </div>
             <p className="text-sm text-gray-500">{stat.label}</p>

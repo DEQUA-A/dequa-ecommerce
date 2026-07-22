@@ -62,13 +62,13 @@ export default async function AdminProductsPage(props: {
             name="q"
             defaultValue={q}
             placeholder="جستجوی محصول..."
-            className="w-full pr-10 pl-4 py-2.5 border rounded-xl text-sm outline-none focus:border-primary"
+            className="w-full pr-10 pl-4 py-2.5 border border-gray-300 hover:border-gray-400 rounded-xl text-sm transition-all duration-200 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
           />
         </div>
         <select
           name="category"
           defaultValue={category || ""}
-          className="px-4 py-2.5 border rounded-xl text-sm outline-none focus:border-primary"
+          className="px-4 py-2.5 border border-gray-300 hover:border-gray-400 rounded-xl text-sm transition-all duration-200 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
         >
           <option value="">همه دسته‌بندی‌ها</option>
           {categories.map((c) => (
@@ -78,7 +78,7 @@ export default async function AdminProductsPage(props: {
         <select
           name="status"
           defaultValue={status || ""}
-          className="px-4 py-2.5 border rounded-xl text-sm outline-none focus:border-primary"
+          className="px-4 py-2.5 border border-gray-300 hover:border-gray-400 rounded-xl text-sm transition-all duration-200 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
         >
           <option value="">همه وضعیت‌ها</option>
           <option value="ACTIVE">فعال</option>
@@ -86,7 +86,7 @@ export default async function AdminProductsPage(props: {
           <option value="OUT_OF_STOCK">ناموجود</option>
           <option value="DISCONTINUED">متوقف شده</option>
         </select>
-        <button className="px-4 py-2.5 bg-gray-800 text-white rounded-xl text-sm font-medium hover:bg-gray-700 transition-colors">
+        <button className="px-5 py-2.5 bg-gray-800 text-white rounded-xl text-sm font-medium hover:bg-gray-700 transition-all duration-200 active:scale-[0.97]">
           جستجو
         </button>
       </form>

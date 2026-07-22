@@ -24,7 +24,7 @@ export default async function HomePage() {
           backgroundImage: "radial-gradient(circle at 25% 50%, rgba(231,76,60,0.3) 0%, transparent 50%), radial-gradient(circle at 75% 50%, rgba(102,126,234,0.3) 0%, transparent 50%)",
         }} />
         <div className="relative max-w-7xl mx-auto px-4 py-20 md:py-32">
-          <div className="max-w-2xl">
+          <div className="max-w-2xl animate-fade-in-up">
             <div className="flex items-center gap-2 text-primary bg-primary/10 w-fit px-4 py-1.5 rounded-full text-sm mb-6">
               <Star className="w-4 h-4 fill-current" />
               تخفیف‌های ویژه فصل
@@ -38,14 +38,14 @@ export default async function HomePage() {
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/products"
-                className="bg-primary hover:bg-primary-hover text-white px-8 py-3.5 rounded-xl font-bold transition-colors inline-flex items-center gap-2"
+                className="bg-primary hover:bg-primary-hover text-white px-8 py-3.5 rounded-xl font-bold transition-all duration-200 inline-flex items-center gap-2 hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 active:scale-[0.97]"
               >
                 <span>خرید کنید</span>
                 <ArrowLeft className="w-4 h-4" />
               </Link>
               <Link
                 href="/products?category=new"
-                className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-8 py-3.5 rounded-xl font-bold transition-colors border border-white/20"
+                className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-8 py-3.5 rounded-xl font-bold transition-all duration-200 border border-white/20 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.97]"
               >
                 محصولات جدید
               </Link>

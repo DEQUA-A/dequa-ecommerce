@@ -25,12 +25,12 @@ export default function CartPage() {
       </div>
 
       {items.length === 0 ? (
-        <div className="text-center py-20">
+        <div className="text-center py-20 animate-fade-in-up">
           <ShoppingBag className="w-16 h-16 mx-auto text-gray-300 mb-4" />
           <p className="text-gray-500 mb-4">سبد خرید شما خالی است</p>
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-hover transition-colors"
+            className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-hover transition-all duration-200 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 active:scale-[0.97]"
           >
             <ArrowLeft className="w-4 h-4" />
             مشاهده محصولات
@@ -38,7 +38,7 @@ export default function CartPage() {
         </div>
       ) : (
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 space-y-4">
             {items.map((item) => (
               <CartItemRow key={item.productId + (item.variantId || "")} item={item} />
             ))}
