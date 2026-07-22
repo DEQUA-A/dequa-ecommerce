@@ -6,6 +6,7 @@ import { useCartStore } from "@/lib/store/cart";
 import { createOrder } from "@/lib/actions/orders";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { AlertCircle, User, Phone, MapPin, Home } from "lucide-react";
 
 export function CheckoutForm() {
   const router = useRouter();
@@ -35,14 +36,13 @@ export function CheckoutForm() {
   const [error, submitAction, pending] = useActionState(submit, null);
 
   return (
-    <form action={submitAction} className="bg-white border rounded-2xl p-6 space-y-5 animate-fade-in-up">
-      <h3 className="font-bold text-lg">اطلاعات تحویل گیرنده</h3>
-
-      <div className="grid grid-cols-2 gap-4">
+    <form action={submitAction} className="bg-white border border-gray-100 rounded-2xl p-6 space-y-5 animate-fade-in-up">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Input
           label="نام و نام خانوادگی"
           name="fullName"
           placeholder="مثال: علی محمدی"
+          icon={<User className="w-4 h-4 text-gray-400" />}
           required
           autoComplete="name"
         />
@@ -51,16 +51,18 @@ export function CheckoutForm() {
           name="phone"
           dir="ltr"
           placeholder="۰۹۱۲۱۲۳۴۵۶۷"
+          icon={<Phone className="w-4 h-4 text-gray-400" />}
           required
           autoComplete="tel"
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Input
           label="شهر"
           name="city"
           placeholder="مثال: تهران"
+          icon={<MapPin className="w-4 h-4 text-gray-400" />}
           required
           autoComplete="address-level2"
         />
@@ -69,6 +71,7 @@ export function CheckoutForm() {
           name="postalCode"
           dir="ltr"
           placeholder="۱۲۳۴۵۶۷۸۹۰"
+          icon={<Home className="w-4 h-4 text-gray-400" />}
           required
           autoComplete="postal-code"
         />
@@ -100,7 +103,10 @@ export function CheckoutForm() {
       </div>
 
       {error && (
-        <p className="text-red-500 text-sm bg-red-50 p-3 rounded-xl">{error}</p>
+        <div className="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-xl border border-red-200 flex items-center gap-2 animate-fade-in-down">
+          <AlertCircle className="w-4 h-4 shrink-0" />
+          {error}
+        </div>
       )}
 
       <Button type="submit" loading={pending} className="w-full">

@@ -1,14 +1,15 @@
 "use client";
 
-import { InputHTMLAttributes, forwardRef, useId } from "react";
+import { InputHTMLAttributes, forwardRef, useId, type ReactNode } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
+  icon?: ReactNode;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, className = "", id, ...props }, ref) => {
+  ({ label, error, icon, className = "", id, ...props }, ref) => {
     const generatedId = useId();
     const inputId = id || generatedId;
 
@@ -20,16 +21,23 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         >
           {label}
         </label>
-        <input
-          ref={ref}
-          id={inputId}
-          className={`w-full px-4 py-2.5 border rounded-xl text-sm transition-all duration-200 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 ${
-            error
-              ? "border-red-400 bg-red-50 focus:border-red-500 focus:ring-red-500/20"
-              : "border-gray-300 hover:border-gray-400"
-          } ${className}`}
-          {...props}
-        />
+        <div className="relative">
+          {icon && (
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+              {icon}
+            </div>
+          )}
+          <input
+            ref={ref}
+            id={inputId}
+            className={`w-full py-2.5 border rounded-xl text-sm transition-all duration-200 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 ${
+              error
+                ? "border-red-400 bg-red-50 focus:border-red-500 focus:ring-red-500/20"
+                : "border-gray-300 hover:border-gray-400"
+            } ${icon ? "pr-10" : "px-4"} ${className}`}
+            {...props}
+          />
+        </div>
         {error && (
           <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
             <span className="inline-block w-1 h-1 rounded-full bg-red-500 shrink-0" />
