@@ -1,11 +1,23 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { User } from "lucide-react";
 import { useSession } from "next-auth/react";
 
 export function UserMenu() {
+  const [mounted, setMounted] = useState(false);
   const { data: session } = useSession();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="w-9 h-9 rounded-full bg-gray-100 animate-pulse" />
+    );
+  }
 
   if (session?.user) {
     return (

@@ -9,9 +9,10 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, icon, className = "", id, ...props }, ref) => {
+  ({ label, error, icon, className = "", id, dir, ...props }, ref) => {
     const generatedId = useId();
     const inputId = id || generatedId;
+    const isLtr = dir === "ltr";
 
     return (
       <div className="space-y-1.5">
@@ -23,18 +24,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         </label>
         <div className="relative">
           {icon && (
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none z-10">
               {icon}
             </div>
           )}
           <input
             ref={ref}
             id={inputId}
+            dir={dir}
             className={`w-full py-2.5 border rounded-xl text-sm transition-all duration-200 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 ${
               error
                 ? "border-red-400 bg-red-50 focus:border-red-500 focus:ring-red-500/20"
                 : "border-gray-300 hover:border-gray-400"
-            } ${icon ? "pr-10" : "px-4"} ${className}`}
+            } ${icon ? "pr-10" : "px-4"} ${isLtr ? "text-left pl-3" : ""} ${className}`}
             {...props}
           />
         </div>

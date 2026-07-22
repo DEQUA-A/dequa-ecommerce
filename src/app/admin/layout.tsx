@@ -86,6 +86,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             خروج
           </button>
           <p className="text-[10px] text-gray-600 mt-2">فروشگاه من v1.0</p>
+          <p className="text-[9px] text-gray-700/50 tracking-wider font-mono mt-1">DEQUA | MMADI</p>
         </div>
       </aside>
 

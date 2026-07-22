@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ShoppingBag, ArrowLeft, Trash2 } from "lucide-react";
 import { useCartStore } from "@/lib/store/cart";
@@ -7,8 +8,24 @@ import { CartItemRow } from "@/components/cart/CartItemRow";
 import { CartSummary } from "@/components/cart/CartSummary";
 
 export default function CartPage() {
+  const [mounted, setMounted] = useState(false);
   const items = useCartStore((s) => s.items);
   const clearCart = useCartStore((s) => s.clearCart);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="h-4 bg-gray-200 rounded w-32 mb-6" />
+        <div className="flex items-center justify-center py-20">
+          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">

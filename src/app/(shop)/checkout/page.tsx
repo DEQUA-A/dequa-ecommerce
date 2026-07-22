@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useCartStore } from "@/lib/store/cart";
@@ -12,10 +13,26 @@ function formatPrice(price: number) {
 }
 
 export default function CheckoutPage() {
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
   const items = useCartStore((s) => s.items);
   const subtotal = useCartStore((s) => s.subtotal());
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="h-4 bg-gray-200 rounded w-48 mb-6" />
+        <div className="flex items-center justify-center py-20">
+          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+        </div>
+      </div>
+    );
+  }
 
   if (!session) {
     return (

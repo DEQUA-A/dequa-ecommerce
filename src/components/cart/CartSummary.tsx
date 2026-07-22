@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ShoppingBag, ShieldCheck, Truck } from "lucide-react";
 import { useCartStore } from "@/lib/store/cart";
@@ -9,8 +10,15 @@ function formatPrice(price: number) {
 }
 
 export function CartSummary() {
+  const [mounted, setMounted] = useState(false);
   const items = useCartStore((s) => s.items);
   const subtotal = useCartStore((s) => s.subtotal());
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return <div className="bg-white border border-gray-100 rounded-2xl p-6 animate-pulse"><div className="h-4 bg-gray-200 rounded w-2/3 mb-4" /><div className="h-3 bg-gray-100 rounded w-full mb-2" /><div className="h-3 bg-gray-100 rounded w-full mb-2" /><div className="h-3 bg-gray-100 rounded w-1/2" /></div>;
 
   if (items.length === 0) return null;
 

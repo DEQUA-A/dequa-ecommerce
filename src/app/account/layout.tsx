@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { User, ShoppingBag, Heart, LogOut, ChevronLeft, Store } from "lucide-react";
@@ -12,9 +13,14 @@ const sidebarItems = [
 ];
 
 export default function AccountLayout({ children }: { children: React.ReactNode }) {
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const { data: session } = useSession();
   const user = session?.user;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const initials = user?.name?.trim()
     ? user.name.trim().split(" ").filter(Boolean).map((n: string) => n[0]).join("").slice(0, 2).toUpperCase()
@@ -28,11 +34,11 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
           <nav className="flex md:flex-col gap-1 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
             <div className="hidden md:flex items-center gap-3 px-4 py-3 mb-2 bg-gray-50 rounded-2xl border border-gray-100">
               <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-sm shrink-0">
-                {initials}
+                {mounted ? initials : "?"}
               </div>
               <div className="min-w-0">
-                <p className="font-bold text-sm truncate">{user?.name || "کاربر"}</p>
-                <p className="text-[10px] text-gray-400 truncate">{user?.email || ""}</p>
+                <p className="font-bold text-sm truncate">{mounted && user ? user.name : "کاربر"}</p>
+                <p className="text-[10px] text-gray-400 truncate">{mounted && user ? user.email : ""}</p>
               </div>
             </div>
 

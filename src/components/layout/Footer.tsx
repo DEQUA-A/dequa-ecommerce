@@ -1,9 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export function Footer() {
-  const year = new Date().getFullYear();
+  const [year, setYear] = useState(2026);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   return (
     <footer className="bg-gray-900 text-white mt-auto">
@@ -85,6 +90,9 @@ export function Footer() {
         <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-gray-500">
             &copy; {year.toLocaleString("fa-IR")} فروشگاه من. تمامی حقوق محفوظ است.
+          </p>
+          <p className="text-[10px] text-gray-600/50 tracking-wider font-mono">
+            DEQUA | MMADI
           </p>
           <div className="flex items-center gap-4 text-gray-500">
             <span className="text-xs">نماد اعتماد</span>
