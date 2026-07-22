@@ -98,6 +98,7 @@ src/
 |------|---------|
 | **Homepage** | ![Homepage](screenshots/homepage.png) |
 | **Products** | ![Products](screenshots/products.png) |
+| **Product Detail** | ![Product Detail](screenshots/product-detail.png) |
 | **Checkout** | ![Checkout](screenshots/checkout.png) |
 | **Dashboard** | ![Dashboard](screenshots/dashboard.png) |
 | **Mobile** | ![Mobile](screenshots/mobile.png) |
